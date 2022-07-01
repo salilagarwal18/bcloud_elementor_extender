@@ -109,7 +109,7 @@ final class Elementor_Edit_Post_Extension {
 	 */
 	public function i18n() {
 
-		load_plugin_textdomain( 'elementor-form-create-custom-post-action' );
+		load_plugin_textdomain( 'bcloud_custom_post_form_action' );
 
 	}
 
@@ -149,7 +149,7 @@ final class Elementor_Edit_Post_Extension {
 		// Add Plugin actions
         add_action( 'elementor_pro/init', function() {
             // Here its safe to include our action class file
-            include_once( __DIR__ . '/classes/create_custom_post_form_action_after_submit.php' );
+            include_once( __DIR__ . '/classes/bcloud_custom_post_form_action.php' );
         
             // Instantiate the action class
             $elementor_form_custom_post_action = new Create_Custom_Post_Form_Action_After_Submit();
@@ -176,9 +176,9 @@ final class Elementor_Edit_Post_Extension {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'elementor-form-create-custom-post-action' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'elementor-form-create-custom-post-action' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor Pro', 'elementor-form-create-custom-post-action' ) . '</strong>'
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'bcloud-elementor-extender' ),
+			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor & Elementor Pro', 'bcloud-elementor-extender' ) . '</strong>'
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
@@ -200,9 +200,9 @@ final class Elementor_Edit_Post_Extension {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-form-create-custom-post-action' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'elementor-form-create-custom-post-action' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'elementor-form-create-custom-post-action' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
+			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'bcloud-elementor-extender' ) . '</strong>',
 			 self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -225,9 +225,9 @@ final class Elementor_Edit_Post_Extension {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-form-create-custom-post-action' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'elementor-form-create-custom-post-action' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'elementor-form-create-custom-post-action' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
+			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', 'bcloud-elementor-extender' ) . '</strong>',
 			 self::MINIMUM_PHP_VERSION
 		);
 
