@@ -6,7 +6,7 @@
  * Version:     1.0.0
  * Author:      Salil Agarwal
  * Author URI:  https://blue-cloud.io
- * Text Domain: elementor-form-create-custom-post-action
+ * Text Domain: bcloud-elementor-extender
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -27,7 +27,103 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Create Custom Post', 'text-domain' );
+		return __( 'Create Custom Post', 'bcloud-elementor-extender' );
+	}
+
+	/**
+	 * Register Settings Section
+	 *
+	 * Registers the Action controls
+	 *
+	 * @access public
+	 * @param \Elementor\Widget_Base $widget
+	 */
+	public function register_settings_section( $widget ) {
+		$widget->start_controls_section(
+			'section_create_custom_post',
+			[
+				'label' => __( 'Create Custom Post', 'bcloud-elementor-extender' ),
+				'condition' => [
+					'submit_actions' => $this->get_name(),
+				],
+			]
+		);
+
+		$all_post_types = get_post_types($args = array(
+			'public'   => true,
+		 ));
+		//array_push($all_post_types, 'post');
+		$widget->add_control(
+			'post_type',
+			[
+				'label' => __( 'Post Type', 'bcloud-elementor-extender' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'post',
+				'options' => $all_post_types,
+				'label_block' => true, // make the input field full width
+				'separator' => 'before',
+				'description' => __( 'Select the Post Type of the post you wanted to create.', 'bcloud-elementor-extender' ),
+			]
+		);
+
+		$widget->add_control(
+			'post_id',
+			[
+				'label' => __( 'Elementor Field ID for Post ID', 'bcloud-elementor-extender' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'separator' => 'before',
+				'description' => __( 'Enter the ID of elementor form field for Post ID. Left it empty for new posts.', 'bcloud-elementor-extender' ),
+			]
+		);
+
+		$widget->add_control(
+			'post_title',
+			[
+				'label' => __( 'Elementor Field ID for Post Title', 'bcloud-elementor-extender' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'description' => __( 'Enter the ID of elementor form field for Post title', 'bcloud-elementor-extender' ),
+			]
+		);
+
+		$widget->add_control(
+			'post_content',
+			[
+				'label' => __( 'Elementor Field ID for Post Content', 'bcloud-elementor-extender' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'description' => __( 'Enter the ID of elementor form field for Post content', 'bcloud-elementor-extender' ),
+			]
+		);
+
+		$repeater = new \Elementor\Repeater();
+		$repeater->add_control(
+            'custom_field_elementor_id', [
+                'label' => __( 'Elementor field Id', 'plugin-domain' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'description' => __( 'Enter the id of the Elementor form field', 'bcloud-elementor-extender' ),
+                'label_block' => true,
+            ]
+        );
+        $repeater->add_control(
+            'custom_field_acf_id', [
+                'label' => __( 'ACF field id', 'plugin-domain' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'description' => __( 'Enter the ID of the ACF field', 'bcloud-elementor-extender' ),
+                'label_block' => true,
+            ]
+        );
+
+        $widget->add_control(
+            'post_custom_fields',
+            [
+                'label' => __( 'ACF Custom Fields', 'plugin-domain' ),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater->get_controls(),
+                'title_field' => '{{{ custom_field_elementor_id }}}',
+                'separator' => 'before'
+            ]
+        );
+		$widget->end_controls_section();
+
 	}
 
 	/**
@@ -112,97 +208,6 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 			$bcloud_post_id = wp_insert_post( $post_arg );
 		}
 		return;
-	}
-
-	/**
-	 * Register Settings Section
-	 *
-	 * Registers the Action controls
-	 *
-	 * @access public
-	 * @param \Elementor\Widget_Base $widget
-	 */
-	public function register_settings_section( $widget ) {
-		$widget->start_controls_section(
-			'section_create_custom_post',
-			[
-				'label' => __( 'Create Custom Post', 'text-domain' ),
-				'condition' => [
-					'submit_actions' => $this->get_name(),
-				],
-			]
-		);
-
-		$widget->add_control(
-			'post_type',
-			[
-				'label' => __( 'Post Type', 'text-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => 'post',
-				'label_block' => true, // make the input field full width
-				'separator' => 'before',
-				'description' => __( 'Enter the Post Type of the post you wanted to create.', 'text-domain' ),
-			]
-		);
-
-		$widget->add_control(
-			'post_id',
-			[
-				'label' => __( 'Post ID Elementor Field ID', 'text-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'separator' => 'before',
-				'description' => __( 'Enter the ID of elementor form field for Post ID. Left it empty for new posts.', 'text-domain' ),
-			]
-		);
-
-		$widget->add_control(
-			'post_title',
-			[
-				'label' => __( 'Post Title Elementor Field ID', 'text-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'description' => __( 'Enter the ID of elementor form field for Post title', 'text-domain' ),
-			]
-		);
-
-		$widget->add_control(
-			'post_content',
-			[
-				'label' => __( 'Post Content Elementor Field ID', 'text-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'description' => __( 'Enter the ID of elementor form field for Post content', 'text-domain' ),
-			]
-		);
-
-		$repeater = new \Elementor\Repeater();
-		$repeater->add_control(
-            'custom_field_elementor_id', [
-                'label' => __( 'Elementor field Id', 'plugin-domain' ),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'description' => __( 'Enter the id of the Elementor form field', 'text-domain' ),
-                'label_block' => true,
-            ]
-        );
-        $repeater->add_control(
-            'custom_field_acf_id', [
-                'label' => __( 'ACF field id', 'plugin-domain' ),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'description' => __( 'Enter the ID of the ACF field', 'text-domain' ),
-                'label_block' => true,
-            ]
-        );
-
-        $widget->add_control(
-            'post_custom_fields',
-            [
-                'label' => __( 'ACF Custom Fields', 'plugin-domain' ),
-                'type' => \Elementor\Controls_Manager::REPEATER,
-                'fields' => $repeater->get_controls(),
-                'title_field' => '{{{ custom_field_elementor_id }}}',
-                'separator' => 'before'
-            ]
-        );
-		$widget->end_controls_section();
-
 	}
 
 	/**
