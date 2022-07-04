@@ -1,11 +1,10 @@
 <?php
 /**
- * Class Create_Custom_Post_Form_Action_After_Submit
+ * Class Bcloud_Custom_Post_Form_Action
  * @see https://developers.elementor.com/custom-form-action/
  * Custom elementor form action after submit to add, edit and delete a post
- * Sendy list via API 
  */
-class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\Forms\Classes\Action_Base {
+class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes\Action_Base {
 	/**
 	 * Get Name
 	 *
@@ -136,9 +135,9 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 	 * @param \ElementorPro\Modules\Forms\Classes\Ajax_Handler $ajax_handler
 	 */
 	public function run( $record, $ajax_handler ) {
-		if ( !current_user_can( 'edit_posts' ) ) {
-			return;
-		}
+		//if ( !current_user_can( 'edit_posts' ) ) {
+		//	return;
+		//}
 		$current_user = wp_get_current_user();
 		$settings = $record->get( 'form_settings' );
 
@@ -149,11 +148,11 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 
 		// return if post type does not exists.
 		if ( !post_type_exists($post_type) ){
-			$ajax_handler->add_error_message('post type does not exist!');
+			$ajax_handler->add_error_message(__('post type does not exist!', 'bcloud-elementor-extender'));
 			return;
 		}
 
-		// Get sumitetd Form data
+		// Get submited Form data
 		$raw_fields = $record->get( 'fields' );
 
 		// Normalize the Form Data
@@ -164,7 +163,7 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 
 		//  Make sure that there is a title or post id
 		if ( empty( $fields[ $settings['post_title'] ] ) && empty( $fields[ $settings['post_id'] ] ) ) {
-			$ajax_handler->add_error_message('post title and post id both cannot be empty');
+			$ajax_handler->add_error_message(__('post title and post id both cannot be empty', 'bcloud-elementor-extender'));
 			return;
 		}
 		$post_title = $fields[ $settings['post_title'] ];
@@ -198,10 +197,11 @@ class Create_Custom_Post_Form_Action_After_Submit extends \ElementorPro\Modules\
 			}
 
 			$post_obj = get_post((int)$post_id);
-			if ($current_user->ID == $post_obj->post_author OR current_user_can('edit_others_posts')){
-				$post_arg['ID'] = $post_id;
-				wp_update_post($post_arg);
-			}
+			/*if ($current_user->ID == $post_obj->post_author OR current_user_can('edit_others_posts')){	
+			}*/
+			$post_arg['ID'] = $post_id;
+			wp_update_post($post_arg);
+
 		}
 		else {
 			$post_arg['post_status'] = 'publish'; /// make it also dynamic - added by Salil on 20 Oct 2021

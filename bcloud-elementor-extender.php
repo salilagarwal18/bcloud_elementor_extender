@@ -1,9 +1,11 @@
 <?php
 /**
- * Plugin Name: Edit Posts From Frontend
+ * Plugin Name: BCloud Elementor Form Extender
  * Description: Plugin to extend Elementor Form to allow users to add and edit custom posts from frontend.
+ * Requires at least: 4.7
  * Plugin URI:  https://blue-cloud.io/
  * Version:     1.0.0
+ * License:     GPL-2.0-or-later
  * Author:      Salil Agarwal
  * Author URI:  https://blue-cloud.io
  * Text Domain: bcloud-elementor-extender
@@ -109,7 +111,7 @@ final class Elementor_Edit_Post_Extension {
 	 */
 	public function i18n() {
 
-		load_plugin_textdomain( 'bcloud_custom_post_form_action' );
+		load_plugin_textdomain( 'bcloud-elementor-extender' );
 
 	}
 
@@ -149,10 +151,10 @@ final class Elementor_Edit_Post_Extension {
 		// Add Plugin actions
         add_action( 'elementor_pro/init', function() {
             // Here its safe to include our action class file
-            include_once( __DIR__ . '/classes/bcloud_custom_post_form_action.php' );
+            include_once( __DIR__ . '/classes/class-bcloud-custom-post-form-action.php' );
         
             // Instantiate the action class
-            $elementor_form_custom_post_action = new Create_Custom_Post_Form_Action_After_Submit();
+            $elementor_form_custom_post_action = new Bcloud_Custom_Post_Form_Action();
         
             // Register the action with form widget
             \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
@@ -177,7 +179,7 @@ final class Elementor_Edit_Post_Extension {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
 			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'bcloud-elementor-extender' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'BCloud Elementor Form Extender Plugin', 'bcloud-elementor-extender' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor & Elementor Pro', 'bcloud-elementor-extender' ) . '</strong>'
 		);
 
@@ -201,7 +203,7 @@ final class Elementor_Edit_Post_Extension {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'BCloud Elementor Form Extender Plugin', 'bcloud-elementor-extender' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor', 'bcloud-elementor-extender' ) . '</strong>',
 			 self::MINIMUM_ELEMENTOR_VERSION
 		);
@@ -226,7 +228,7 @@ final class Elementor_Edit_Post_Extension {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
-			'<strong>' . esc_html__( 'Elementor Form Create Custom Post Plugin', 'bcloud-elementor-extender' ) . '</strong>',
+			'<strong>' . esc_html__( 'BCloud Elementor Form Extender Plugin', 'bcloud-elementor-extender' ) . '</strong>',
 			'<strong>' . esc_html__( 'PHP', 'bcloud-elementor-extender' ) . '</strong>',
 			 self::MINIMUM_PHP_VERSION
 		);
