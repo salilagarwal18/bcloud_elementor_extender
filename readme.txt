@@ -1,6 +1,6 @@
 === BCloud Elementor Form Extender - Create or update Custom Post types forms ===
 Contributors: salil18
-Tags: elementor, elementor form
+Tags: elementor, elementor form, elementor pro, form widget, form widget extender
 Requires at least: 4.7
 Tested up to: 6.0
 Stable tag: 1.0.0
