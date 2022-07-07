@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-final class Elementor_Edit_Post_Extension {
+final class Bcloud_Elementor_Edit_Post_Extension {
 
 	/**
 	 * Plugin Version
@@ -277,4 +277,4 @@ final class Elementor_Edit_Post_Extension {
 
 }
 
-Elementor_Edit_Post_Extension::instance();
+Bcloud_Elementor_Edit_Post_Extension::instance();
