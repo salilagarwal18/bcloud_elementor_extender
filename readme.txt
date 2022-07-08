@@ -1,4 +1,4 @@
-=== BCloud Elementor Form Extender - Create or update Custom Post types forms ===
+=== BCloud Elementor Form Extender - Add/Edit Post Or Custom Post Types From Frontend ===
 Contributors: salil18
 Tags: elementor, elementor form, elementor pro, form widget, form widget extender
 Requires at least: 4.7
@@ -8,17 +8,17 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
  
-Extends Elementor Pro Form Widget. Now Add or edit posts or custom posts using Elementor Form. Requires Elementor Pro plugin.
+Extends Elementor Pro Form Widget. Now Add or edit posts or custom posts types from frontend using Elementor Form. Requires Elementor Pro plugin.
 
 == Description ==
 
-Extends Elementor Pro Form Widget. Now Add or edit custom posts using Elementor Form. This plugin requires Elementor Pro plugin.
+Extends Elementor Pro Form Widget. Now Add or edit posts or custom posts types from frontend using Elementor Form. This plugin requires Elementor Pro plugin.
 
 * Create or edit posts using Elementor Form in frontend.
 * Create or edit any custom posts using Elementor Form in frontend
 * Supports ACF Custom Fields.
 
-Check my website for custom development: [WordPress Developer](https://blue-cloud.io)
+Check our website for custom development: [WordPress Developer](https://blue-cloud.io)
 
 == Installation ==
 
