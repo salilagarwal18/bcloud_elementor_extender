@@ -5,3 +5,8 @@
 ```
 npm init
 ```
+
+### Installed GULP
+```
+npm install gulp --save-dev
+```

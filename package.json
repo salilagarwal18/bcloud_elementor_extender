@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/salilagarwal18/bcloud_elementor_extender/issues"
   },
-  "homepage": "https://github.com/salilagarwal18/bcloud_elementor_extender#readme"
+  "homepage": "https://github.com/salilagarwal18/bcloud_elementor_extender#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
 }
