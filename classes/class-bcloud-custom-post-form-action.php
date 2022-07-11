@@ -138,7 +138,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 		//if ( !current_user_can( 'edit_posts' ) ) {
 		//	return;
 		//}
-		$current_user = wp_get_current_user();
+		//$current_user = wp_get_current_user();
 		$settings = $record->get( 'form_settings' );
 
 		$post_type = 'post';

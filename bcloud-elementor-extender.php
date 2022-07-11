@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+define('BCLOUD_ELEMENTOR_EXTENDER_URL', plugin_dir_url(__FILE__));
+
+
 /**
  * Main Elementor New Extension Class
  *
@@ -159,6 +162,14 @@ final class Bcloud_Elementor_Edit_Post_Extension {
             // Register the action with form widget
             \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
         });
+
+		// add custom form fields
+		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
+			include_once( __DIR__ . '/classes/class-bcloud-form-slider-field.php' );
+
+			$bcloud_field_registrar_manager->register( new Bcloud_Form_Slider_Field() );
+
+		});
         //add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 		//add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
 	}
@@ -274,6 +285,16 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 		\Elementor\Plugin::$instance->controls_manager->register_control( 'control-type-', new \New_Control() );
 
 	}
+
+
+	/**
+	 * For Enqueuing styles and scripts
+	 */
+
+	 public function enqueue_styles_scripts(){
+		//wp_register_script('bcloud-slider-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider.js',
+		//					'jquery', microtime(), true);
+	 }
 
 }
 
