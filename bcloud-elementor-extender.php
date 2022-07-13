@@ -163,11 +163,19 @@ final class Bcloud_Elementor_Edit_Post_Extension {
             \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
         });
 
-		// add custom form fields
+		// add custom form fields - Range field
 		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
 			include_once( __DIR__ . '/classes/class-bcloud-form-slider-field.php' );
 
 			$bcloud_field_registrar_manager->register( new Bcloud_Form_Slider_Field() );
+
+		});
+
+		// add custom form fields - Calculator field
+		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
+			include_once( __DIR__ . '/classes/class-bcloud-form-calculator-field.php' );
+
+			$bcloud_field_registrar_manager->register( new Bcloud_Form_Calculator_Field() );
 
 		});
         //add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );

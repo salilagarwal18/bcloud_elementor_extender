@@ -1,9 +1,8 @@
 <?php
 
 /**
- * Class Bcloud_Custom_Post_Form_Action
- * @see https://developers.elementor.com/custom-form-action/
- * Custom elementor form action after submit to add, edit and delete a post
+ * Class Bcloud_Form_Slider_Field
+ * Custom elementor form Range field
  */
 class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_Base
 {

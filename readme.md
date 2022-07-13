@@ -10,3 +10,8 @@ npm init
 ```
 npm install gulp --save-dev
 ```
+
+
+### Useful links
+
+https://developers.elementor.com/docs/widgets/widget-settings/
