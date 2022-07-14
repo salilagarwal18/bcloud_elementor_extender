@@ -4,7 +4,7 @@
   "description": "=== BCloud Elementor Form Extender - Add/Edit Post Or Custom Post Types From Frontend === Contributors: salil18 Tags: elementor, elementor form, elementor pro, form widget, form widget extender Requires at least: 4.7 Tested up to: 6.0 Stable tag: 1.0.0 Requires PHP: 5.6 License: GPLv2 or later License URI: https://www.gnu.org/licenses/gpl-2.0.html",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -12,11 +12,13 @@
   },
   "author": "",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/salilagarwal18/bcloud_elementor_extender/issues"
   },
   "homepage": "https://github.com/salilagarwal18/bcloud_elementor_extender#readme",
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "jest": "^28.1.3"
   }
 }
