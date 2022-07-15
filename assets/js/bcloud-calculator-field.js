@@ -52,7 +52,7 @@ function bcloud_calculator_update_value(selected_obj, $){
 }
 
 
-export function bcloud_calculator_parse_parenthesis(formula_parts){
+function bcloud_calculator_parse_parenthesis(formula_parts){
     formula_parts = bcloud_remove_empty_elements(formula_parts)
     parenthesis_found = false;
     index_of_opening_paren = -1
