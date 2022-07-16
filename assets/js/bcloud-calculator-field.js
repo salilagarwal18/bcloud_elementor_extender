@@ -1,14 +1,16 @@
 jQuery(document).ready(bcloud_calculator_init);
 
-function bcloud_calculator_init($){
+function bcloud_calculator_init(){
+    const $ = jQuery;
     console.log($('.bcloud-calculator-field').val());
     $('.bcloud-calculator-field').each(function(){
-        bcloud_calculator_field($(this), $);
+        bcloud_calculator_field($(this));
     });
 
 }
 
-function bcloud_calculator_field(calculator_field, $){
+function bcloud_calculator_field(calculator_field){
+    const $ = jQuery; 
     var formula = $(calculator_field).attr('data-formula');
     var formula_parts = formula.split(' ');
     formula_parts = bcloud_remove_empty_elements(formula_parts)

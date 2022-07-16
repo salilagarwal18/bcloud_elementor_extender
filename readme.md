@@ -15,7 +15,7 @@ npm install gulp --save-dev
 ### Useful links
 
 https://developers.elementor.com/docs/widgets/widget-settings/
-
+https://github.com/elementor/elementor/issues/6139
 
 ## TODO
 

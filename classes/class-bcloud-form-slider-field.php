@@ -116,7 +116,7 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
         wp_enqueue_script(
             'bcloud-slider-preview',
             BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider-preview.js',
-            null,
+            'bcloud-slider',
             microtime(),
             true
         );

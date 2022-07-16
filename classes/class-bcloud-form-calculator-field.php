@@ -181,16 +181,16 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
     public function add_preview_depends()
     {
         wp_enqueue_script(
-            'bcloud-slider',
-            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider.js',
+            'bcloud-calculator',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-calculator-field.js',
             'jquery',
             microtime(),
             true
         );
         wp_enqueue_script(
-            'bcloud-slider-preview',
-            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider-preview.js',
-            null,
+            'bcloud-calculator-preview',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-calculator-field-preview.js',
+            'bcloud-calculator',
             microtime(),
             true
         );
