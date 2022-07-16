@@ -3,6 +3,8 @@ const gulp = require('gulp');
 //const webpack = require('webpack-stream');
 //import gulp from 'gulp';
 //import webpack from 'webpack-stream';
+const zip = require('gulp-zip');
+
  
 gulp.task('babel-transpile', () =>
     gulp.src('src/js/*.cjs')
@@ -27,3 +29,9 @@ gulp.task('webpack-task', function() {
     }))
     .pipe(gulp.dest('assets/js/'));
 });
+
+gulp.task('zip-plugin', function(){
+    return gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/**'])
+		.pipe(zip('bcloud-elementor-extender.zip'))
+		.pipe(gulp.dest('.'))
+})
