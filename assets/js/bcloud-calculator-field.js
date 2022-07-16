@@ -30,7 +30,6 @@ function bcloud_calculator_field(calculator_field){
             }
         }
     })
-    $(calculator_field).val(23);
 }
 
 
@@ -50,7 +49,7 @@ function bcloud_calculator_update_value(selected_obj, $){
     var formula = $('#' + update_field_id).attr('data-formula');
     var formula_parts = formula.split(' ');
     var result =  bcloud_calculator_parse_parenthesis(formula_parts, $)
-    formula = $('#' + update_field_id).val(result);
+    formula = $('#' + update_field_id).text(result);
 }
 
 

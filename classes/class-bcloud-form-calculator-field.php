@@ -159,15 +159,16 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         catch (ParseError $e) {
             echo 'Message: ' .$e->getMessage();
         }
-        $form->add_render_attribute('input' . $item_index, 'type', 'text', true);
-        $form->add_render_attribute('input' . $item_index, 'value', $result, true);
-        $form->add_render_attribute('input' . $item_index, 'class', 'elementor-field-textual bcloud-calculator-field', true);
-        $form->add_render_attribute('input' . $item_index, 'disabled', null, true);
+        //$form->add_render_attribute('input' . $item_index, 'type', 'text', true);
+        //$form->add_render_attribute('input' . $item_index, 'value', $result, true);
+        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-calculator-field elementor-field', true);
+        //$form->add_render_attribute('input' . $item_index, 'disabled', null, true);
         $form->add_render_attribute('input' . $item_index, 'data-formula', $formula, true);
 
 ?>
 
-        <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
+        <div <?php $form->print_render_attribute_string('input' . $item_index); ?>>
+        <?php echo $result; ?> </div>
         <?php //var_dump($item); 
         ?>
 
@@ -194,6 +195,13 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
             microtime(),
             true
         );
+        
+        wp_enqueue_style(
+            'bcloud-calculator-field',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/css/bcloud-calculator-field.css',
+            '',
+            microtime()
+        );
     }
 
     public function add_assets_depends($form)
@@ -204,6 +212,13 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
             'jquery',
             microtime(),
             true
+        );
+        
+        wp_enqueue_style(
+            'bcloud-calculator-field',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/css/bcloud-calculator-field.css',
+            '',
+            microtime()
         );
     }
 }
