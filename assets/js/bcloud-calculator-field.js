@@ -9,8 +9,8 @@ function bcloud_calculator_init($){
 }
 
 function bcloud_calculator_field(calculator_field, $){
-    formula = $(calculator_field).attr('data-formula');
-    formula_parts = formula.split(' ');
+    var formula = $(calculator_field).attr('data-formula');
+    var formula_parts = formula.split(' ');
     formula_parts = bcloud_remove_empty_elements(formula_parts)
     console.log(formula_parts)
     formula_parts.forEach(function(formula_part){
@@ -33,7 +33,7 @@ function bcloud_calculator_field(calculator_field, $){
 
 
 function bcloud_remove_empty_elements(any_array){
-    new_array = []
+    var new_array = []
     any_array.forEach(function(element){
         if (element == ''){}
         else{
@@ -44,24 +44,24 @@ function bcloud_remove_empty_elements(any_array){
 }
 
 function bcloud_calculator_update_value(selected_obj, $){
-    update_field_id = $(selected_obj).attr('data-bcloud-update-field-id');
-    formula = $('#' + update_field_id).attr('data-formula');
-    formula_parts = formula.split(' ');
-    result =  bcloud_calculator_parse_parenthesis(formula_parts, $)
+    var update_field_id = $(selected_obj).attr('data-bcloud-update-field-id');
+    var formula = $('#' + update_field_id).attr('data-formula');
+    var formula_parts = formula.split(' ');
+    var result =  bcloud_calculator_parse_parenthesis(formula_parts, $)
     formula = $('#' + update_field_id).val(result);
 }
 
 
 function bcloud_calculator_parse_parenthesis(formula_parts){
     formula_parts = bcloud_remove_empty_elements(formula_parts)
-    parenthesis_found = false;
-    index_of_opening_paren = -1
-    index_of_closing_paren = -1
-    final_formula_parts = []
+    var parenthesis_found = false;
+    var index_of_opening_paren = -1
+    var index_of_closing_paren = -1
+    var final_formula_parts = []
     do {
         parenthesis_found = false
         final_formula_parts = []
-        found_one_closing_paren = false
+        var found_one_closing_paren = false
         formula_parts.forEach(function(formula_part, index){
             final_formula_parts.push(formula_part)
             if(formula_part == '('){
@@ -74,7 +74,7 @@ function bcloud_calculator_parse_parenthesis(formula_parts){
                 console.log(index_of_opening_paren)
                 console.log(index_of_closing_paren)
                 console.log(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
-                result = bcloud_calculator_get_new_value(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
+                var result = bcloud_calculator_get_new_value(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
                 final_formula_parts.splice(index_of_opening_paren, (index_of_closing_paren - index_of_opening_paren) + 1)
                 final_formula_parts.push(result)
                 console.log(final_formula_parts)
