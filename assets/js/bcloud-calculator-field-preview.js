@@ -5,6 +5,6 @@ jQuery(document).ready(function ($) {
 
 function bcloud_render_calcultor_in_preview(inputField, item, i, settings ){
     //console.log(item);
-    var result = '<div class="bcloud-calculator-field elementor-field">0</div>';
+    var result = '<input type="hidden" class="bcloud-calculator-field-input elementor-field"><label class="bcloud-calculator-field">0</label>';
     return result;
 }

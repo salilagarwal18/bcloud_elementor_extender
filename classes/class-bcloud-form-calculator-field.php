@@ -159,18 +159,16 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         catch (ParseError $e) {
             echo 'Message: ' .$e->getMessage();
         }
-        //$form->add_render_attribute('input' . $item_index, 'type', 'text', true);
-        //$form->add_render_attribute('input' . $item_index, 'value', $result, true);
-        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-calculator-field elementor-field', true);
+        $form->add_render_attribute('input' . $item_index, 'type', 'hidden', true);
+        $form->add_render_attribute('input' . $item_index, 'value', $result, true);
+        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-calculator-input-field', true);
         //$form->add_render_attribute('input' . $item_index, 'disabled', null, true);
         $form->add_render_attribute('input' . $item_index, 'data-formula', $formula, true);
 
 ?>
 
-        <div <?php $form->print_render_attribute_string('input' . $item_index); ?>>
-        <?php echo $result; ?> </div>
-        <?php //var_dump($item); 
-        ?>
+        <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
+        <label class="elementor-field-label bcloud-calculator-field"><?php echo $result; ?></label>
 
 <?php
         //echo '<br><br>';
