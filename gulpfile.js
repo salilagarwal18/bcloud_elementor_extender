@@ -6,6 +6,7 @@ const gulp = require('gulp');
 const zip = require('gulp-zip');
 const replace = require('gulp-replace');
 const stripDebug = require('gulp-strip-debug');
+const deleteLines = require('gulp-delete-lines');
 
  
 gulp.task('babel-transpile', () =>
@@ -39,6 +40,9 @@ gulp.task('zip-plugin', function(){
         // adding more files in-between the stream
         .pipe(gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/css*/*'])) 
         .pipe(replace("microtime()", '"1.1"')) // update with newest version of plugin.
+        .pipe(deleteLines({
+            'filters': [/var_dump/i]
+        }))
 		.pipe(zip('bcloud-elementor-extender.zip'))
 		.pipe(gulp.dest('.'))
 })
