@@ -4,6 +4,8 @@ const gulp = require('gulp');
 //import gulp from 'gulp';
 //import webpack from 'webpack-stream';
 const zip = require('gulp-zip');
+var replace = require('gulp-replace');
+
 
  
 gulp.task('babel-transpile', () =>
@@ -32,6 +34,7 @@ gulp.task('webpack-task', function() {
 
 gulp.task('zip-plugin', function(){
     return gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/**'])
+        .pipe(replace("microtime()", '"1.1"'))
 		.pipe(zip('bcloud-elementor-extender.zip'))
 		.pipe(gulp.dest('.'))
 })
