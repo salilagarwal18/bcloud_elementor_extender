@@ -4,8 +4,8 @@ const gulp = require('gulp');
 //import gulp from 'gulp';
 //import webpack from 'webpack-stream';
 const zip = require('gulp-zip');
-var replace = require('gulp-replace');
-
+const replace = require('gulp-replace');
+const stripDebug = require('gulp-strip-debug');
 
  
 gulp.task('babel-transpile', () =>
@@ -33,8 +33,12 @@ gulp.task('webpack-task', function() {
 });
 
 gulp.task('zip-plugin', function(){
-    return gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/**'])
-        .pipe(replace("microtime()", '"1.1"'))
+    return gulp.src(['assets*/js*/*'])
+        .pipe(stripDebug()) // to remove console.log statements from JS code
+        .pipe(replace("void 0", '')) // stripDebug adds void 0 in place of console.log. So removing them as well.
+        // adding more files in-between the stream
+        .pipe(gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/css*/*'])) 
+        .pipe(replace("microtime()", '"1.1"')) // update with newest version of plugin.
 		.pipe(zip('bcloud-elementor-extender.zip'))
 		.pipe(gulp.dest('.'))
 })
