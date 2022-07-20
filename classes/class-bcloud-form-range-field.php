@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Class Bcloud_Form_Slider_Field
+ * Class Bcloud_Form_range_Field
  * Custom elementor form Range field
  */
-class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_Base
+class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_Base
 {
 
     /**
@@ -30,7 +30,7 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
      */
     public function get_type()
     {
-        return 'slider';
+        return 'range';
     }
 
     public function update_controls($widget)
@@ -38,14 +38,15 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
         $elementor = \ElementorPro\Plugin::elementor();
 
         $control_data = $elementor->controls_manager->get_control_from_stack($widget->get_unique_name(), 'form_fields');
-
+        //var_dump($control_data['fields']['form_fields_advanced_tab']);echo '<br><br>';
+        //var_dump($control_data['fields']['field_value']);
         if (is_wp_error($control_data)) {
             return;
         }
 
         $field_controls = [
-            'slider_min' => [
-                'name' => 'slider_min',
+            'range_min' => [
+                'name' => 'range_min',
                 'label' => esc_html__('Min. Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -55,8 +56,8 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
-            'slider_max' => [
-                'name' => 'slider_max',
+            'range_max' => [
+                'name' => 'range_max',
                 'label' => esc_html__('Max. Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -66,8 +67,8 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
-            'slider_step' => [
-                'name' => 'slider_step',
+            'range_step' => [
+                'name' => 'range_step',
                 'label' => esc_html__('Step Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -77,27 +78,53 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
+            'range_default' => [
+                'name' => 'range_default',
+                'label' => esc_html__('Default Value', 'bcloud-elementor-extender'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'condition' => [
+                    'field_type' => $this->get_type(),
+                ],
+                'tab' => 'advanced',
+                'inner_tab' => 'form_fields_advanced_tab',
+                'tabs_wrapper' => 'form_fields_tabs',
+            ],
         ];
 
         $control_data['fields'] = $this->inject_field_controls($control_data['fields'], $field_controls);
+        //$control_data['fields']['field_value']['value'] = $this->inject_field_controls($control_data['field_value']['value'], 'range');
         $widget->update_control('form_fields', $control_data);
     }
 
 
     public function render($item, $item_index, $form)
     {
+        //var_dump($item);
         $form->add_render_attribute('input' . $item_index, 'type', 'range', true);
-        $form->add_render_attribute('input' . $item_index, 'min', $item['slider_min'], true);
-        $form->add_render_attribute('input' . $item_index, 'max', $item['slider_max'], true);
-        $form->add_render_attribute('input' . $item_index, 'value', intval($item['slider_max'] / 2), true);
-        $form->add_render_attribute('input' . $item_index, 'step', $item['slider_step'], true);
+        if (isset($item['range_min'])){
+            $form->add_render_attribute('input' . $item_index, 'min', $item['range_min'], true);
+        }
+        
+        if (isset($item['range_max'])){
+            $form->add_render_attribute('input' . $item_index, 'max', $item['range_max'], true);
+        }
+        
+        if (isset($item['range_default'])){
+            $form->add_render_attribute('input' . $item_index, 'value', $item['range_default'], true);
+        }
 
-        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-slider', true);
+        if (isset($item['range_step'])){
+            $form->add_render_attribute('input' . $item_index, 'step', $item['range_step'], true);
+        }
+
+        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-range-field elementor-field', true);
+        
+        $form->add_render_attribute('div' . $item_index, 'class', 'bcloud-range-value elementor-field', true);
 
 ?>
 
         <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
-        <label class="bcloud-slider-value"></label>
+        <label class="bcloud-range-value elementor-field-label"></label>
         <?php //var_dump($item); 
         ?>
 
@@ -107,29 +134,43 @@ class Bcloud_Form_Slider_Field extends \ElementorPro\Modules\Forms\Fields\Field_
     public function add_preview_depends()
     {
         wp_enqueue_script(
-            'bcloud-slider',
-            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider.js',
+            'bcloud-range',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
             'jquery',
             microtime(),
             true
         );
         wp_enqueue_script(
-            'bcloud-slider-preview',
-            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider-preview.js',
-            'bcloud-slider',
+            'bcloud-range-preview',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range-preview.js',
+            'bcloud-range',
             microtime(),
             true
+        );
+        
+        wp_enqueue_style(
+            'bcloud-range-field',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/css/bcloud-range-field.css',
+            '',
+            microtime()
         );
     }
 
     public function add_assets_depends($form)
     {
         wp_enqueue_script(
-            'bcloud-slider',
-            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider.js',
+            'bcloud-range',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
             'jquery',
             microtime(),
             true
+        );
+        
+        wp_enqueue_style(
+            'bcloud-range-field',
+            BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/css/bcloud-range-field.css',
+            '',
+            microtime()
         );
     }
 }

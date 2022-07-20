@@ -165,9 +165,9 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 
 		// add custom form fields - Range field
 		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
-			include_once( __DIR__ . '/classes/class-bcloud-form-slider-field.php' );
+			include_once( __DIR__ . '/classes/class-bcloud-form-range-field.php' );
 
-			$bcloud_field_registrar_manager->register( new Bcloud_Form_Slider_Field() );
+			$bcloud_field_registrar_manager->register( new Bcloud_Form_Range_Field() );
 
 		});
 
@@ -300,7 +300,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 
 	 public function enqueue_styles_scripts(){
-		//wp_register_script('bcloud-slider-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-slider.js',
+		//wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
 		//					'jquery', microtime(), true);
 	 }
 
