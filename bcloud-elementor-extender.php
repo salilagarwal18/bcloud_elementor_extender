@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: BCloud Elementor Form Extender
- * Description: Plugin to extend Elementor Form to allow users to add or edit post or custom posts from frontend.
+ * Description: Plugin to extend Elementor Form to allow users to add or edit post or custom posts from frontend. Adds Range & Calculated fields.
  * Requires at least: 4.7
  * Plugin URI:  https://blue-cloud.io/
- * Version:     2.0.0
+ * Version:     1.1.0
  * License:     GPL-2.0-or-later
  * Author:      Salil Agarwal
  * Author URI:  https://blue-cloud.io
@@ -34,7 +34,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 *
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Minimum Elementor Version
@@ -52,7 +52,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 *
 	 * @var string Minimum PHP version required to run the plugin.
 	 */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '5.6';
 
 	/**
 	 * Instance

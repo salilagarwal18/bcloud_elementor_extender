@@ -1,9 +1,9 @@
-=== BCloud Elementor Form Extender - Add/Edit Post Types From Frontend, Range & Calculated Fields  ===
+=== BCloud Elementor Form Extender - Add/Edit Post Types From Frontend | Adds Range & Calculated Fields ===
 Contributors: salil18
 Tags: elementor, form, edit, range, calculator
 Requires at least: 4.7
-Tested up to: 6.0
-Stable tag: 2.0.0
+Tested up to: 6.0.1
+Stable tag: 1.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,7 +50,7 @@ This will open up a page showing all the available plugins in WordPress. In the 
 
 == Changelog ==
 
-= 2.0.0 =
+= 1.1.0 =
 * Added 2 new field types - Range & Calculated fields.
 
 = 1.0.0 =
