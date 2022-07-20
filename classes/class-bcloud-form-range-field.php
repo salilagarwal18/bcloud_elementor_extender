@@ -117,7 +117,7 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
             $form->add_render_attribute('input' . $item_index, 'step', $item['range_step'], true);
         }
 
-        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-range-field elementor-field', true);
+        $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-range-field', true);
         
         $form->add_render_attribute('div' . $item_index, 'class', 'bcloud-range-value elementor-field', true);
 
