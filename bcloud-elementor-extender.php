@@ -4,7 +4,7 @@
  * Description: Plugin to extend Elementor Form to allow users to add or edit post or custom posts from frontend.
  * Requires at least: 4.7
  * Plugin URI:  https://blue-cloud.io/
- * Version:     1.0.0
+ * Version:     2.0.0
  * License:     GPL-2.0-or-later
  * Author:      Salil Agarwal
  * Author URI:  https://blue-cloud.io
