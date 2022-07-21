@@ -39,7 +39,7 @@ gulp.task('zip-plugin', function(){
         }))
         // adding more files in-between the stream
         .pipe(gulp.src(['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/css*/*'])) 
-        .pipe(replace("microtime()", '"1.1"')) // update with newest version of plugin.
+        .pipe(replace("microtime()", '"1.1.0"')) // update with newest version of plugin.
         .pipe(deleteLines({
             'filters': [/var_dump/i]
         }))

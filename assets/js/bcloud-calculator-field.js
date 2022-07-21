@@ -1,6 +1,7 @@
 jQuery(document).ready(bcloud_calculator_init);
 
 function bcloud_calculator_init(){
+    console.log('bcloud_calculator_init')
     const $ = jQuery;
     //console.log($('.bcloud-calculator-input-field').val());
     $('.bcloud-calculator-input-field').each(function(){
@@ -48,7 +49,7 @@ function bcloud_calculator_update_value(selected_obj, $){
     var update_field_id = $(selected_obj).attr('data-bcloud-update-field-id');
     var formula = $('#' + update_field_id).attr('data-formula');
     var formula_parts = formula.split(' ');
-    var result =  bcloud_calculator_parse_parenthesis(formula_parts, $)
+    var result =  bcloud_calculator_parse_parenthesis(formula_parts)
     $('#' + update_field_id).val(result);
     $('#' + update_field_id).siblings('.bcloud-calculator-field').text(result);
     

@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
 
 function bcloud_render_range_in_preview(inputField, item, i, settings ){
     //console.log(item);
-    result = '<input type="range" class="bcloud-range-field elementor-field" min="' + item.range_min + '" max="' + item.range_max + '" step="' + item.range_step + '" value="' + item.range_max / 2 + '">' 
-            + '<label class="bcloud-range-value">' + item.range_max / 2 + '</label>';
+    result = '<input type="range" class="bcloud-range-field" min="' + item.range_min + '" max="' + item.range_max + '" step="' + item.range_step + '" value="' + item.range_default + '">' 
+            + '<label class="bcloud-range-value">' + '</label>';
     return result;
 }

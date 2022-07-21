@@ -21,11 +21,36 @@ Extends Elementor Pro Form Widget. Now Add or edit posts or custom posts types f
 == Adds 2 new fields type to Form - Range & Calculated field ==
 
 === Calculated Field ===
-With Calculated Field for Elementor, you can quickly and easily create calculator, booking, order forms that perform basic and complex calculations. 
+
+With Calculated Field for Elementor, you can quickly and easily create calculator, enquire forms, that perform basic and complex calculations. 
 This powerful add-on gives you the ability to customize your forms to meet your specific needs. 
-Whether you need to calculate shipping costs, book appointments, or take orders, this plugin makes it easy to get the job done.
+
+=== Format for the formula ===
+
+* Use the field id (found in the Advance Tab) to denote different field - operands.
+* Always add a white space after each entity in the formula.
+
+Examples - 
+
+`
+field_id1 + field_id2 
+`
+
+`
+( field_id1 - field_id2 ) / field_id3
+`
+
+`
+( field_id1 + field_id2 ) * 5
+`
+
+Operators supported: + - * / % (  ) 
+
+Addition, Subtraction, Multiplication, Division, Modulus, Open Parenthesis, Closed Parenthesis
+
 
 === Range Field ===
+
 Adds a Range field type to the Elementor Form widget.
 
 Check our website for custom development: [WordPress Developer](https://blue-cloud.io)
