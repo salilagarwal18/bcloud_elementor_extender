@@ -67,7 +67,7 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
             'bcloud_calculator_after' => [
-                'name' => 'bcloud_calculator_before',
+                'name' => 'bcloud_calculator_after',
                 'label' => esc_html__('After', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
@@ -104,7 +104,12 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         foreach($form_fields as $form_field){
             if ($form_field['custom_id'] != $formula_field_id){
                 array_push($all_field_custom_ids, $form_field['custom_id']);
-                $all_field_custom_ids_values[$form_field['custom_id']] = $form_field['field_value'];
+                if ( $form_field['field_type'] == 'range' ){
+                    $all_field_custom_ids_values[$form_field['custom_id']] = $form_field['bcloud_range_default'];
+                }
+                else{
+                    $all_field_custom_ids_values[$form_field['custom_id']] = $form_field['field_value'];
+                }
             }
         }
         //echo '<br><br>';
@@ -164,11 +169,13 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-calculator-input-field', true);
         //$form->add_render_attribute('input' . $item_index, 'disabled', null, true);
         $form->add_render_attribute('input' . $item_index, 'data-formula', $formula, true);
+        $form->add_render_attribute('input' . $item_index, 'data-before-formula', $item['bcloud_calculator_before'], true);
+        $form->add_render_attribute('input' . $item_index, 'data-after-formula', $item['bcloud_calculator_after'], true);
 
 ?>
 
         <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
-        <label class="elementor-field-label bcloud-calculator-field"><?php echo $result; ?></label>
+        <label class="elementor-field-label bcloud-calculator-field"><?php echo $item['bcloud_calculator_before'] . $result . $item['bcloud_calculator_after'] ; ?></label>
 
 <?php
         //echo '<br><br>';

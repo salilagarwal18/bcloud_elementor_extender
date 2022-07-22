@@ -101,19 +101,19 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
     {
         //var_dump($item);
         $form->add_render_attribute('input' . $item_index, 'type', 'range', true);
-        if (isset($item['range_min'])){
+        if (isset($item['bcloud_range_min'])){
             $form->add_render_attribute('input' . $item_index, 'min', $item['bcloud_range_min'], true);
         }
         
-        if (isset($item['range_max'])){
+        if (isset($item['bcloud_range_max'])){
             $form->add_render_attribute('input' . $item_index, 'max', $item['bcloud_range_max'], true);
         }
         
-        if (isset($item['range_default'])){
+        if (isset($item['bcloud_range_default'])){
             $form->add_render_attribute('input' . $item_index, 'value', $item['bcloud_range_default'], true);
         }
 
-        if (isset($item['range_step'])){
+        if (isset($item['bcloud_range_step'])){
             $form->add_render_attribute('input' . $item_index, 'step', $item['bcloud_range_step'], true);
         }
 

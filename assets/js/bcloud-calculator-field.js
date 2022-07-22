@@ -51,7 +51,9 @@ function bcloud_calculator_update_value(selected_obj, $){
     var formula_parts = formula.split(' ');
     var result =  bcloud_calculator_parse_parenthesis(formula_parts)
     $('#' + update_field_id).val(result);
-    $('#' + update_field_id).siblings('.bcloud-calculator-field').text(result);
+    $('#' + update_field_id).siblings('.bcloud-calculator-field').text( 
+        $('#' + update_field_id).attr('data-before-formula') + String(result) + 
+        $('#' + update_field_id).attr('data-after-formula'));
     
 }
 
