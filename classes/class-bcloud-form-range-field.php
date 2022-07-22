@@ -45,8 +45,8 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
         }
 
         $field_controls = [
-            'range_min' => [
-                'name' => 'range_min',
+            'bcloud_range_min' => [
+                'name' => 'bcloud_range_min',
                 'label' => esc_html__('Min. Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -56,8 +56,8 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
-            'range_max' => [
-                'name' => 'range_max',
+            'bcloud_range_max' => [
+                'name' => 'bcloud_range_max',
                 'label' => esc_html__('Max. Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -67,8 +67,8 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
-            'range_step' => [
-                'name' => 'range_step',
+            'bcloud_range_step' => [
+                'name' => 'bcloud_range_step',
                 'label' => esc_html__('Step Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -78,8 +78,8 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
                 'inner_tab' => 'form_fields_content_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
-            'range_default' => [
-                'name' => 'range_default',
+            'bcloud_range_default' => [
+                'name' => 'bcloud_range_default',
                 'label' => esc_html__('Default Value', 'bcloud-elementor-extender'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'condition' => [
@@ -102,19 +102,19 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
         //var_dump($item);
         $form->add_render_attribute('input' . $item_index, 'type', 'range', true);
         if (isset($item['range_min'])){
-            $form->add_render_attribute('input' . $item_index, 'min', $item['range_min'], true);
+            $form->add_render_attribute('input' . $item_index, 'min', $item['bcloud_range_min'], true);
         }
         
         if (isset($item['range_max'])){
-            $form->add_render_attribute('input' . $item_index, 'max', $item['range_max'], true);
+            $form->add_render_attribute('input' . $item_index, 'max', $item['bcloud_range_max'], true);
         }
         
         if (isset($item['range_default'])){
-            $form->add_render_attribute('input' . $item_index, 'value', $item['range_default'], true);
+            $form->add_render_attribute('input' . $item_index, 'value', $item['bcloud_range_default'], true);
         }
 
         if (isset($item['range_step'])){
-            $form->add_render_attribute('input' . $item_index, 'step', $item['range_step'], true);
+            $form->add_render_attribute('input' . $item_index, 'step', $item['bcloud_range_step'], true);
         }
 
         $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-range-field', true);
