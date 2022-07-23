@@ -99,6 +99,7 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
 
     public function render($item, $item_index, $form)
     {
+        //echo (int) 'ss';
         //var_dump($item);
         $form->add_render_attribute('input' . $item_index, 'type', 'range', true);
         if (isset($item['bcloud_range_min'])){
@@ -111,6 +112,7 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
         
         if (isset($item['bcloud_range_default'])){
             $form->add_render_attribute('input' . $item_index, 'value', $item['bcloud_range_default'], true);
+            $form->add_render_attribute('input' . $item_index, 'default', $item['bcloud_range_default'], true);
         }
 
         if (isset($item['bcloud_range_step'])){
@@ -121,7 +123,7 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
 ?>
 
         <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
-        <label class="bcloud-range-value elementor-field-label"></label>
+        <label class="bcloud-range-value elementor-field-label"><?php echo $item['bcloud_range_default']; ?></label>
 
 <?php
     }
@@ -168,4 +170,19 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
             microtime()
         );
     }
+    
+    public function validation( $field, $record, $ajax_handler ) {
+        return;
+        //var_dump($field);
+        //var_dump($record->get( 'form_settings' ));*/
+
+		if ( ! empty( $field['bcloud_range_max'] ) && ( ! is_numeric($field['value']) || $field['bcloud_range_max'] < (int) $field['value'] ) ) {
+			$ajax_handler->add_error( $field['id'], sprintf( __( 'The value must be less than or equal to %s', 'bcloud-elementor-extender' ), $field['bcloud_range_max'] ) );
+		}
+
+		if ( ! empty( $field['bcloud_range_min'] ) && $field['bcloud_range_min'] > (int) $field['value'] ) {
+			$ajax_handler->add_error( $field['id'], sprintf( __( 'The value must be greater than or equal %s', 'bcloud-elementor-extender' ), $field['bcloud_range_min'] ) );
+		}
+
+	}
 }

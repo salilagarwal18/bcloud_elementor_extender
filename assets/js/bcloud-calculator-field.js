@@ -7,7 +7,18 @@ function bcloud_calculator_init(){
     $('.bcloud-calculator-input-field').each(function(){
         bcloud_calculator_field($(this));
     });
-
+    
+    // code for resetting the calculator field value on form submission.
+    jQuery('.elementor-form').on('reset', function() {
+        jQuery(this).find('.bcloud-calculator-input-field').each(function(){
+            var result = jQuery(this).attr('default');
+            jQuery(this).val(result);
+            $(this).siblings('.bcloud-calculator-field').text( 
+                $(this).attr('data-before-formula') + String(result) + 
+                $(this).attr('data-after-formula'));
+            })
+            
+        });
 }
 
 function bcloud_calculator_field(calculator_field){
@@ -77,21 +88,21 @@ function bcloud_calculator_parse_parenthesis(formula_parts){
             else if (formula_part == ')' && !found_one_closing_paren){
                 
                 index_of_closing_paren = index
-                console.log(index_of_opening_paren)
-                console.log(index_of_closing_paren)
-                console.log(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
+                //console.log(index_of_opening_paren)
+                //console.log(index_of_closing_paren)
+                //console.log(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
                 var result = bcloud_calculator_get_new_value(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
                 final_formula_parts.splice(index_of_opening_paren, (index_of_closing_paren - index_of_opening_paren) + 1)
                 final_formula_parts.push(result)
-                console.log(final_formula_parts)
+                //console.log(final_formula_parts)
                 found_one_closing_paren = true
 
             }
         })
-        console.log(final_formula_parts)
+        //console.log(final_formula_parts)
         formula_parts = final_formula_parts
     }while(parenthesis_found)
-    console.log(formula_parts)
+    //console.log(formula_parts)
     return bcloud_calculator_get_new_value(formula_parts)
 }
 

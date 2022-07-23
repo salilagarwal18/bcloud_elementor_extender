@@ -166,6 +166,7 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         }
         $form->add_render_attribute('input' . $item_index, 'type', 'hidden', true);
         $form->add_render_attribute('input' . $item_index, 'value', $result, true);
+        $form->add_render_attribute('input' . $item_index, 'default', $result, true);
         $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-calculator-input-field', true);
         //$form->add_render_attribute('input' . $item_index, 'disabled', null, true);
         $form->add_render_attribute('input' . $item_index, 'data-formula', $formula, true);
