@@ -138,7 +138,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 		//if ( !current_user_can( 'edit_posts' ) ) {
 		//	return;
 		//}
-		//$current_user = wp_get_current_user();
+		$current_user = wp_get_current_user();
 		$settings = $record->get( 'form_settings' );
 
 		$post_type = 'post';
@@ -148,7 +148,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 
 		// return if post type does not exists.
 		if ( !post_type_exists($post_type) ){
-			$ajax_handler->add_error_message(__('post type does not exist!', 'bcloud-elementor-extender'));
+			$ajax_handler->add_error_message(__('Post type does not exist!', 'bcloud-elementor-extender'));
 			return;
 		}
 
@@ -163,7 +163,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 
 		//  Make sure that there is a title or post id
 		if ( empty( $fields[ $settings['post_title'] ] ) && empty( $fields[ $settings['post_id'] ] ) ) {
-			$ajax_handler->add_error_message(__('post title and post id both cannot be empty', 'bcloud-elementor-extender'));
+			$ajax_handler->add_error_message(__('Post title and post id both cannot be empty', 'bcloud-elementor-extender'));
 			return;
 		}
 		$post_title = $fields[ $settings['post_title'] ];
@@ -193,15 +193,19 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 		if ( !empty( $fields[ $settings['post_id'] ] ) ){
 			$post_id = $fields[ $settings['post_id'] ];
 			if (get_post_type((int)$post_id) != $post_type){
+				$ajax_handler->add_error_message(__('Post type is not equal to the post type of post_id', 'bcloud-elementor-extender'));
 				return;
 			}
 
 			$post_obj = get_post((int)$post_id);
-			/*if ($current_user->ID == $post_obj->post_author OR current_user_can('edit_others_posts')){	
-			}*/
-			$post_arg['ID'] = $post_id;
-			wp_update_post($post_arg);
-
+			if (($current_user && $current_user->ID == $post_obj->post_author) OR current_user_can('edit_others_posts')){	
+				$post_arg['ID'] = $post_id;
+				wp_update_post($post_arg);
+			}
+			else{
+				$ajax_handler->add_error_message(__('You do not have the required permission to edit this post', 'bcloud-elementor-extender'));
+				return;
+			}
 		}
 		else {
 			$post_arg['post_status'] = 'publish'; /// make it also dynamic - added by Salil on 20 Oct 2021

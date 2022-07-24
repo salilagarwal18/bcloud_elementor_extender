@@ -19,8 +19,9 @@ https://github.com/elementor/elementor/issues/6139
 
 ## TODO
 
---- Sanitize the data - Send the same request using Postman and test.
---- Resetting of Range and calculator field after form submission.
+--- Validating the data - Send the same request using Postman and test. - Elementor is also not doing validation 
+    for number field, for example.
+--- Resetting of Range and calculator field after form submission. - done on 23 July
 
 
 ## How to set-up UnitTest for PHP
