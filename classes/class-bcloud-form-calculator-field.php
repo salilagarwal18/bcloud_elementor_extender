@@ -142,6 +142,9 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
                     case '*':
                         $eval_string .= $formula_part;
                         break;
+                    case '**':
+                        $eval_string .= $formula_part;
+                        break;
                     case '%':
                         $eval_string .= $formula_part;
                         break;

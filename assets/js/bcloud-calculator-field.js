@@ -61,6 +61,7 @@ function bcloud_calculator_update_value(selected_obj, $){
     var formula = $('#' + update_field_id).attr('data-formula');
     var formula_parts = formula.split(' ');
     var result =  bcloud_calculator_parse_parenthesis(formula_parts)
+    console.log(result);
     $('#' + update_field_id).val(result);
     $('#' + update_field_id).siblings('.bcloud-calculator-field').text( 
         $('#' + update_field_id).attr('data-before-formula') + String(result) + 
@@ -123,6 +124,7 @@ function bcloud_calculator_get_new_value(formula_parts){
                     operand2 = 0;
                 }
                 result = bcloud_calculator_do_math(operand1, operand2, operator)
+                console.log('result of operation: ' + String(result))
                 if (result){
                     operand1 = result
                 }
@@ -137,6 +139,7 @@ function bcloud_calculator_get_new_value(formula_parts){
             else {
                 operand2 = Number(formula_part);
                 result = bcloud_calculator_do_math(operand1, operand2, operator)
+                console.log('result of operation: ' + String(result))
                 if (result){
                     operand1 = result
                 }
@@ -161,6 +164,9 @@ function bcloud_calculator_get_new_value(formula_parts){
                 case '%':
                     operator = '%';
                     break;
+                case '**':
+                    operator = '**';
+                    break;
             }
         }
     })
@@ -183,6 +189,8 @@ function bcloud_calculator_do_math(operand1, operand2, operation){
             return Number(operand1) / Number(operand2)
         case '%':
             return Number(operand1) % Number(operand2)
+        case '**':
+            return Math.pow( Number(operand1), Number(operand2) )
         default:
             return 0;
     }

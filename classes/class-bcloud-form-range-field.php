@@ -89,6 +89,28 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
                 'inner_tab' => 'form_fields_advanced_tab',
                 'tabs_wrapper' => 'form_fields_tabs',
             ],
+            'bcloud_range_before' => [
+                'name' => 'bcloud_range_before',
+                'label' => esc_html__('Before', 'bcloud-elementor-extender'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'field_type' => $this->get_type(),
+                ],
+                'tab' => 'content',
+                'inner_tab' => 'form_fields_content_tab',
+                'tabs_wrapper' => 'form_fields_tabs',
+            ],
+            'bcloud_range_after' => [
+                'name' => 'bcloud_range_after',
+                'label' => esc_html__('After', 'bcloud-elementor-extender'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'field_type' => $this->get_type(),
+                ],
+                'tab' => 'content',
+                'inner_tab' => 'form_fields_content_tab',
+                'tabs_wrapper' => 'form_fields_tabs',
+            ],
         ];
 
         $control_data['fields'] = $this->inject_field_controls($control_data['fields'], $field_controls);
@@ -118,12 +140,15 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
         if (isset($item['bcloud_range_step'])){
             $form->add_render_attribute('input' . $item_index, 'step', $item['bcloud_range_step'], true);
         }
+        
+        $form->add_render_attribute('input' . $item_index, 'data-before-range', $item['bcloud_range_before'], true);
+        $form->add_render_attribute('input' . $item_index, 'data-after-range', $item['bcloud_range_after'], true);
 
         $form->add_render_attribute('input' . $item_index, 'class', 'bcloud-range-field', true);
 ?>
 
         <input <?php $form->print_render_attribute_string('input' . $item_index); ?>>
-        <label class="bcloud-range-value elementor-field-label"><?php echo $item['bcloud_range_default']; ?></label>
+        <label class="bcloud-range-value elementor-field-label"><?php echo $item['bcloud_range_before'] . $item['bcloud_range_default'] . $item['bcloud_range_after']; ?></label>
 
 <?php
     }
