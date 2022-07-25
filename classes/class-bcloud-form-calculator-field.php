@@ -167,6 +167,10 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
         catch (ParseError $e) {
             echo 'Message: ' .$e->getMessage();
         }
+        
+        if (is_float($result)){
+            $result = round($result, 2);
+        }
         $form->add_render_attribute('input' . $item_index, 'type', 'hidden', true);
         $form->add_render_attribute('input' . $item_index, 'value', $result, true);
         $form->add_render_attribute('input' . $item_index, 'default', $result, true);

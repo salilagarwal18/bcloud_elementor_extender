@@ -44,9 +44,9 @@ field_id1 + field_id2
 ( field_id1 + field_id2 ) * 5
 `
 
-Operators supported: + - * / % (  ) 
+Operators supported: + - * / % (  ) **
 
-Addition, Subtraction, Multiplication, Division, Modulus, Open Parenthesis, Closed Parenthesis
+Addition, Subtraction, Multiplication, Division, Modulus, Open Parenthesis, Closed Parenthesis, Exponentiation
 
 
 === Range Field ===
