@@ -73,6 +73,15 @@ This will open up a page showing all the available plugins in WordPress. In the 
 
 == Screenshots ==
 
+1. Action After Submit - Create Custom Post
+2. Create Custom Post - Showing all post types 
+3. ACF support for Create Custom Post
+4. Range field 
+5. Range field - Advance tab options
+6. Calculated field - showing formula for calculating EMI
+7. Form for calculating EMI - backend
+8. Form for calculating EMI - frontend
+
 == Changelog ==
 
 = 1.1.0 =
