@@ -28,7 +28,7 @@ function bcloud_calculator_field(calculator_field){
     formula_parts = bcloud_remove_empty_elements(formula_parts)
     console.log(formula_parts)
     formula_parts.forEach(function(formula_part){
-        if (formula_part == '(' || formula_part == ')'){}
+        if (formula_part == '(' || formula_part == ')' || formula_part == '/'){}
         else if ($('#form-field-' + formula_part).length){
             $('#form-field-' + formula_part).on('input', function(){
                 bcloud_calculator_update_value($(this), $);
@@ -111,7 +111,7 @@ function bcloud_calculator_get_new_value(formula_parts){
     let result = null
     let operand1 = null, operand2 = null, operator = null
     formula_parts.forEach(function(formula_part){
-        if (jQuery('#form-field-' + formula_part).length){
+        if (!['/', '(', ')'].includes(formula_part) && jQuery('#form-field-' + formula_part).length){
             if (!operand1){
                 operand1 = jQuery('#form-field-' + formula_part).val();
                 if (isNaN(operand1)){
