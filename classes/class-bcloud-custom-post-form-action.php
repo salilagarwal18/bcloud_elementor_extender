@@ -96,7 +96,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 		$repeater = new \Elementor\Repeater();
 		$repeater->add_control(
             'custom_field_elementor_id', [
-                'label' => __( 'Elementor field Id', 'plugin-domain' ),
+                'label' => __( 'Elementor field Id', 'bcloud-elementor-extender' ),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'description' => __( 'Enter the id of the Elementor form field', 'bcloud-elementor-extender' ),
                 'label_block' => true,
@@ -104,7 +104,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
         );
         $repeater->add_control(
             'custom_field_acf_id', [
-                'label' => __( 'ACF field id', 'plugin-domain' ),
+                'label' => __( 'ACF field id', 'bcloud-elementor-extender' ),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'description' => __( 'Enter the ID of the ACF field', 'bcloud-elementor-extender' ),
                 'label_block' => true,
@@ -114,11 +114,59 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
         $widget->add_control(
             'post_custom_fields',
             [
-                'label' => __( 'ACF Custom Fields', 'plugin-domain' ),
+                'label' => __( 'ACF Custom Fields', 'bcloud-elementor-extender' ),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $repeater->get_controls(),
                 'title_field' => '{{{ custom_field_elementor_id }}}',
-                'separator' => 'before'
+                'separator' => 'before',
+                'prevent_empty' => false
+            ]
+        );
+        
+        
+        $tax_repeater = new \Elementor\Repeater();
+        
+        $all_taxonomies = get_taxonomies();
+		$tax_repeater->add_control(
+            'taxonomy_name', [
+                'label' => __( 'Select Taxonomy', 'bcloud-elementor-extender' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'categories',
+				'options' => $all_taxonomies,
+                'description' => __( 'Select taxonomy to assign', 'bcloud-elementor-extender' ),
+                'label_block' => true,
+            ]
+        );
+        $tax_repeater->add_control(
+            'taxonomy_term', [
+                'label' => __( 'Elementor field id', 'bcloud-elementor-extender' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'description' => __( 'Enter the ID of elementor form field for Taxonomy Term', 'bcloud-elementor-extender' ),
+                'label_block' => true,
+            ]
+        );
+        
+        $tax_repeater->add_control(
+			'create_new_terms',
+			[
+				'label' => esc_html__( 'Create New Terms', 'bcloud-elementor-extender' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Yes', 'bcloud-elementor-extender' ),
+				'label_off' => esc_html__( 'No', 'bcloud-elementor-extender' ),
+				'return_value' => 'yes',
+				'default' => 'no',
+			]
+		);
+
+        $widget->add_control(
+            'post_taxonomies',
+            [
+                'label' => __( 'Taxonomies', 'bcloud-elementor-extender' ),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $tax_repeater->get_controls(),
+                'title_field' => '{{{ taxonomy_name }}}',
+                'separator' => 'before',
+                'prevent_empty' => false
             ]
         );
 		$widget->end_controls_section();
@@ -229,7 +277,10 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 			$element['post_content'],
 			$element['post_custom_fields'],
 			$element['custom_field_elementor_id'],
-			$element['custom_field_acf_id']
+			$element['custom_field_acf_id'],
+			$element['taxonomy_name'],
+			$element['taxonomy_term'],
+			$element['post_taxonomies']
 		);
 	}
 }
