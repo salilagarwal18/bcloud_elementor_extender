@@ -147,9 +147,9 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
         );
         
         $tax_repeater->add_control(
-			'create_new_terms',
+			'create_new_term',
 			[
-				'label' => esc_html__( 'Create New Terms', 'bcloud-elementor-extender' ),
+				'label' => esc_html__( 'Create New Term', 'bcloud-elementor-extender' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
 				'label_on' => esc_html__( 'Yes', 'bcloud-elementor-extender' ),
 				'label_off' => esc_html__( 'No', 'bcloud-elementor-extender' ),
@@ -225,9 +225,35 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
             $custom_acf_id = $settings['post_custom_fields'][$index]['custom_field_acf_id'];
 			$meta_input[$custom_acf_id] = $fields[$custom_elementor_id];
         }
+        
+    	$taxTermsLen = count($settings['post_taxonomies']);
+        $tax_input = array();
+        for($index = 0; $index < $taxTermsLen; $index++){
+            $taxonomy_name = $settings['post_taxonomies'][$index]['taxonomy_name'];
+            $taxonomy_term_field_id = $settings['post_taxonomies'][$index]['taxonomy_term'];
+            $taxonomy_term = $fields[$taxonomy_term_field_id];
+            $create_new_term = $settings['post_taxonomies'][$index]['create_new_term'];
+            $term_obj = get_term_by('name', $taxonomy_term, $taxonomy_name );
+            $term_id = null;
+            if (!$term_obj){
+            	if ($create_new_term == 'yes'){
+	            	$term_obj_arr = wp_insert_term($taxonomy_term, $taxonomy_name);
+	            	if (!is_wp_error($term_obj_arr)){
+	            		$term_id = $term_obj_arr['term_id'];
+	            	}
+            	}
+            }
+            else{
+            	$term_id = $term_obj->term_id;
+            }
+            if ($term_id){
+            	$tax_input[$taxonomy_name] = $term_id;
+            }
+        }
 		$post_arg = array( 
 			'post_type' => $post_type, // here is my custom post type, you can change it to your own type there.
 			'meta_input' => $meta_input,
+			'tax_input' => $tax_input
 		);
 		
 		if ( !empty($post_content) ){
