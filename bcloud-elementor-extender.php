@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define('BCLOUD_ELEMENTOR_EXTENDER_URL', plugin_dir_url(__FILE__));
+define( 'BCLOUD_ELEMENTOR_EXTENDER_URL', plugin_dir_url( __FILE__ ) );
 
 
 /**
@@ -84,7 +84,6 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 			self::$_instance = new self();
 		}
 		return self::$_instance;
-
 	}
 
 	/**
@@ -96,9 +95,8 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function __construct() {
 
-		add_action( 'init', [ $this, 'i18n' ] );
-		add_action( 'plugins_loaded', [ $this, 'init' ] );
-
+		add_action( 'init', array( $this, 'i18n' ) );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 	}
 
 	/**
@@ -115,7 +113,6 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	public function i18n() {
 
 		load_plugin_textdomain( 'bcloud-elementor-extender' );
-
 	}
 
 	/**
@@ -135,51 +132,58 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 
 		// Check if Elementor installed and activated
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_missing_main_plugin' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_missing_main_plugin' ) );
 			return;
 		}
 
 		// Check for required Elementor version
 		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_elementor_version' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_elementor_version' ) );
 			return;
 		}
 
 		// Check for required PHP version
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
 			return;
 		}
 
 		// Add Plugin actions
-        add_action( 'elementor_pro/init', function() {
-            // Here its safe to include our action class file
-            include_once( __DIR__ . '/classes/class-bcloud-custom-post-form-action.php' );
-        
-            // Instantiate the action class
-            $elementor_form_custom_post_action = new Bcloud_Custom_Post_Form_Action();
-        
-            // Register the action with form widget
-            \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
-        });
+		add_action(
+			'elementor_pro/init',
+			function () {
+				// Here its safe to include our action class file
+				include_once __DIR__ . '/classes/class-bcloud-custom-post-form-action.php';
+
+				// Instantiate the action class
+				$elementor_form_custom_post_action = new Bcloud_Custom_Post_Form_Action();
+
+				// Register the action with form widget
+				\ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
+			}
+		);
 
 		// add custom form fields - Range field
-		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
-			include_once( __DIR__ . '/classes/class-bcloud-form-range-field.php' );
+		add_action(
+			'elementor_pro/forms/fields/register',
+			function ( $bcloud_field_registrar_manager ) {
+				include_once __DIR__ . '/classes/class-bcloud-form-range-field.php';
 
-			$bcloud_field_registrar_manager->register( new Bcloud_Form_Range_Field() );
-
-		});
+				$bcloud_field_registrar_manager->register( new Bcloud_Form_Range_Field() );
+			}
+		);
 
 		// add custom form fields - Calculator field
-		add_action('elementor_pro/forms/fields/register', function($bcloud_field_registrar_manager){
-			include_once( __DIR__ . '/classes/class-bcloud-form-calculator-field.php' );
+		add_action(
+			'elementor_pro/forms/fields/register',
+			function ( $bcloud_field_registrar_manager ) {
+				include_once __DIR__ . '/classes/class-bcloud-form-calculator-field.php';
 
-			$bcloud_field_registrar_manager->register( new Bcloud_Form_Calculator_Field() );
-
-		});
-        //add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
-		//add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
+				$bcloud_field_registrar_manager->register( new Bcloud_Form_Calculator_Field() );
+			}
+		);
+		// add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
+		// add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
 	}
 
 	/**
@@ -193,7 +197,9 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function admin_notice_missing_main_plugin() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
@@ -203,7 +209,6 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
 
 	/**
@@ -217,18 +222,19 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function admin_notice_minimum_elementor_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
 			'<strong>' . esc_html__( 'BCloud Elementor Form Extender Plugin', 'bcloud-elementor-extender' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor', 'bcloud-elementor-extender' ) . '</strong>',
-			 self::MINIMUM_ELEMENTOR_VERSION
+			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
 
 	/**
@@ -242,18 +248,19 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function admin_notice_minimum_php_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'bcloud-elementor-extender' ),
 			'<strong>' . esc_html__( 'BCloud Elementor Form Extender Plugin', 'bcloud-elementor-extender' ) . '</strong>',
 			'<strong>' . esc_html__( 'PHP', 'bcloud-elementor-extender' ) . '</strong>',
-			 self::MINIMUM_PHP_VERSION
+			self::MINIMUM_PHP_VERSION
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
 
 	/**
@@ -268,11 +275,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	public function init_widgets() {
 
 		// Include Widget files
-		//require_once( __DIR__ . '/widgets/test-widget.php' );
+		// require_once( __DIR__ . '/widgets/test-widget.php' );
 
 		// Register widget
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_New_Widget() );
-
 	}
 
 	/**
@@ -287,11 +293,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	public function init_controls() {
 
 		// Include Control files
-		//require_once( __DIR__ . '/controls/test-control.php' );
+		// require_once( __DIR__ . '/controls/test-control.php' );
 
 		// Register control
 		\Elementor\Plugin::$instance->controls_manager->register_control( 'control-type-', new \New_Control() );
-
 	}
 
 
@@ -299,11 +304,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 * For Enqueuing styles and scripts
 	 */
 
-	 public function enqueue_styles_scripts(){
-		//wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
-		//					'jquery', microtime(), true);
-	 }
-
+	public function enqueue_styles_scripts() {
+		// wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
+		// 'jquery', microtime(), true);
+	}
 }
 
 Bcloud_Elementor_Edit_Post_Extension::instance();
