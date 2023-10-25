@@ -3,7 +3,6 @@ jQuery( document ).ready( bcloud_calculator_init );
 function bcloud_calculator_init(){
 	console.log( 'bcloud_calculator_init' )
 	const $ = jQuery;
-	// console.log($('.bcloud-calculator-input-field').val());
 	$( '.bcloud-calculator-input-field' ).each(
 		function () {
 			bcloud_calculator_field( $( this ) );
@@ -47,7 +46,7 @@ function bcloud_calculator_field(calculator_field){
 						);
 						let attr_value = $( '#form-field-' + formula_part ).attr( 'data-bcloud-update-field-id' );
 				if (attr_value) {
-					// TO DO For multiple calculator fields in the same form
+					// TO DO For multiple calculator fields in the same form.
 				} else {
 					$( '#form-field-' + formula_part ).attr( 'data-bcloud-update-field-id', $( calculator_field ).attr( 'id' ) );
 				}
@@ -107,22 +106,21 @@ function bcloud_calculator_parse_parenthesis(formula_parts){
 				} else if (formula_part == ')' && ! found_one_closing_paren) {
 
 					index_of_closing_paren = index
+					/*
 					// console.log(index_of_opening_paren)
 					// console.log(index_of_closing_paren)
 					// console.log(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
+					*/
 					var result = bcloud_calculator_get_new_value( formula_parts.slice( index_of_opening_paren + 1, index_of_closing_paren ) )
 					final_formula_parts.splice( index_of_opening_paren, (index_of_closing_paren - index_of_opening_paren) + 1 )
 					final_formula_parts.push( result )
-					// console.log(final_formula_parts)
 					found_one_closing_paren = true
 
 				}
 			}
 		)
-		// console.log(final_formula_parts)
 		formula_parts = final_formula_parts
 	} while (parenthesis_found) {
-		// console.log(formula_parts)
 		return bcloud_calculator_get_new_value( formula_parts )
 	}
 }

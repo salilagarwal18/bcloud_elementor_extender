@@ -35,8 +35,6 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
 		$elementor = \ElementorPro\Plugin::elementor();
 
 		$control_data = $elementor->controls_manager->get_control_from_stack( $widget->get_unique_name(), 'form_fields' );
-		// var_dump($control_data['fields']['form_fields_advanced_tab']);echo '<br><br>';
-		// var_dump($control_data['fields']['field_value']);
 		if ( is_wp_error( $control_data ) ) {
 			return;
 		}
@@ -111,14 +109,14 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
 		);
 
 		$control_data['fields'] = $this->inject_field_controls( $control_data['fields'], $field_controls );
-		// $control_data['fields']['field_value']['value'] = $this->inject_field_controls($control_data['field_value']['value'], 'range');
+		/*
+		$control_data['fields']['field_value']['value'] = $this->inject_field_controls($control_data['field_value']['value'], 'range');
+		*/
 		$widget->update_control( 'form_fields', $control_data );
 	}
 
 
 	public function render( $item, $item_index, $form ) {
-		// echo (int) 'ss';
-		// var_dump($item);
 		$form->add_render_attribute( 'input' . $item_index, 'type', 'range', true );
 		if ( isset( $item['bcloud_range_min'] ) ) {
 			$form->add_render_attribute( 'input' . $item_index, 'min', $item['bcloud_range_min'], true );
@@ -192,8 +190,6 @@ class Bcloud_Form_Range_Field extends \ElementorPro\Modules\Forms\Fields\Field_B
 
 	public function validation( $field, $record, $ajax_handler ) {
 		return;
-		// var_dump($field);
-		// var_dump($record->get( 'form_settings' ));*/
 
 		if ( ! empty( $field['bcloud_range_max'] ) && ( ! is_numeric( $field['value'] ) || $field['bcloud_range_max'] < (int) $field['value'] ) ) {
 			$ajax_handler->add_error( $field['id'], sprintf( __( 'The value must be less than or equal to %s', 'bcloud-elementor-extender' ), $field['bcloud_range_max'] ) );

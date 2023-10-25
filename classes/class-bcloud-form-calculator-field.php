@@ -82,23 +82,16 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 
 
 	public function render( $item, $item_index, $form ) {
-		// var_dump($item);
-		// echo '<br><br>';
 		$form_settings = $form->get_settings_for_display();
 		$formula       = $item['bcloud_calculator'];
-		// var_dump($formula);
 		$formula_parts = explode( ' ', $formula );
-		// var_dump($formula_parts);
 		$formula_parts = array_filter(
 			$formula_parts,
 			function ( $value ) {
 				return ! is_null( $value ) && $value !== '';
 			}
 		);
-		// var_dump($formula_parts);
 		$form_fields = $form_settings['form_fields'];
-		// echo '<br><br>';
-		// var_dump($form_fields);
 		$formula_field_id            = $item['custom_id'];
 		$all_field_custom_ids        = array();
 		$all_field_custom_ids_values = array();
@@ -112,8 +105,6 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 				}
 			}
 		}
-		// echo '<br><br>';
-		// var_dump($all_field_custom_ids);
 		$eval_string = '';
 		foreach ( $formula_parts as $formula_part ) {
 			if ( in_array( $formula_part, $all_field_custom_ids ) ) {
@@ -154,9 +145,7 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 				}
 			}
 		}
-		// echo '<br><br>';
-
-		// var_dump($eval_string);
+		
 		$result = '';
 		try {
 			$result = eval( 'return ' . $eval_string . ';' );
@@ -182,10 +171,6 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		<label class="elementor-field-label bcloud-calculator-field"><?php echo $item['bcloud_calculator_before'] . $result . $item['bcloud_calculator_after']; ?></label>
 
 		<?php
-		// echo '<br><br>';
-		// var_dump($form_settings);
-
-		// echo 'hello';
 	}
 
 	public function add_preview_depends() {

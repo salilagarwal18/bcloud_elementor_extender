@@ -1,8 +1,9 @@
 const gulp = require( 'gulp' );
-// const babel = require('gulp-babel');
+/*const babel = require('gulp-babel');
 // const webpack = require('webpack-stream');
 // import gulp from 'gulp';
 // import webpack from 'webpack-stream';
+*/
 const zip         = require( 'gulp-zip' );
 const replace     = require( 'gulp-replace' );
 const deleteLines = require( 'gulp-delete-lines' );
@@ -51,12 +52,12 @@ gulp.task(
 		return gulp.src( ['assets*/js*/*'] )
 		.pipe(
 			deleteLines(
-				{   // to remove console.log statements from JS code
+				{   // to remove console.log statements from JS code.
 					'filters': [/console\.log/i]
 				}
 			)
 		)
-		// adding more files in-between the stream
+		// adding more files in-between the stream.
 		.pipe( gulp.src( ['readme.txt', 'bcloud-elementor-extender.php', 'classes*/**', 'assets*/css*/*'] ) )
 		.pipe( replace( "microtime()", '"1.1.0"' ) ) // update with newest version of plugin.
 		.pipe(

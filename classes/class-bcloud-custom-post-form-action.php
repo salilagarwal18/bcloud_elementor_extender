@@ -54,7 +54,6 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 				'public' => true,
 			)
 		);
-		// array_push($all_post_types, 'post');
 		$widget->add_control(
 			'post_type',
 			array(
@@ -62,7 +61,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'post',
 				'options'     => $all_post_types,
-				'label_block' => true, // make the input field full width
+				'label_block' => true, // make the input field full width.
 				'separator'   => 'before',
 				'description' => __( 'Select the Post Type of the post you wanted to create.', 'bcloud-elementor-extender' ),
 			)
@@ -188,9 +187,11 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 	 * @param \ElementorPro\Modules\Forms\Classes\Ajax_Handler $ajax_handler
 	 */
 	public function run( $record, $ajax_handler ) {
-		// if ( !current_user_can( 'edit_posts' ) ) {
-		// return;
-		// }
+		/*
+		if ( !current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+		*/
 		$current_user = wp_get_current_user();
 		$settings     = $record->get( 'form_settings' );
 
@@ -205,16 +206,16 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 			return;
 		}
 
-		// Get submited Form data
+		// Get submited Form data.
 		$raw_fields = $record->get( 'fields' );
 
-		// Normalize the Form Data
+		// Normalize the Form Data.
 		$fields = array();
 		foreach ( $raw_fields as $id => $field ) {
 			$fields[ $id ] = $field['value'];
 		}
 
-		// Make sure that there is a title or post id
+		// Make sure that there is a title or post id.
 		if ( empty( $fields[ $settings['post_title'] ] ) && empty( $fields[ $settings['post_id'] ] ) ) {
 			$ajax_handler->add_error_message( __( 'Post title and post id both cannot be empty', 'bcloud-elementor-extender' ) );
 			return;
@@ -284,7 +285,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 				return;
 			}
 		} else {
-			$post_arg['post_status'] = 'publish'; // make it also dynamic - added by Salil on 20 Oct 2021
+			$post_arg['post_status'] = 'publish'; // make it also dynamic - added by Salil on 20 Oct 2021.
 			$bcloud_post_id          = wp_insert_post( $post_arg );
 		}
 		return;

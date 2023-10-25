@@ -6,7 +6,6 @@ jQuery( document ).ready(
 );
 
 function bcloud_render_range_in_preview(inputField, item, i, settings ){
-	// console.log(item);
 	var range_before = item.bcloud_range_before ? item.bcloud_range_before : '';
 	var range_after  = item.bcloud_range_after ? item.bcloud_range_after : '';
 	result           = '<input type="range" class="bcloud-range-field" min="' + item.bcloud_range_min + '" max="' + item.bcloud_range_max + '" step="' + item.bcloud_range_step +

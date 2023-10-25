@@ -2,7 +2,6 @@ jQuery( document ).ready( bcloud_range_update_value() );
 
 
 function bcloud_range_update_value(){
-	// console.log('i was runned-bcloud_range_update_value')
 	jQuery( '.bcloud-range-field' ).on(
 		'input',
 		function () {
@@ -24,7 +23,6 @@ function bcloud_range_update_value(){
 		jQuery( '.elementor-form' ).on(
 			'reset',
 			function () {
-				// console.log('1212jhds cubw')
 				jQuery( '.bcloud-range-field' ).each(
 					function () {
 						jQuery( this ).siblings( '.bcloud-range-value' ).text(

@@ -130,40 +130,40 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function init() {
 
-		// Check if Elementor installed and activated
+		// Check if Elementor installed and activated.
 		if ( ! did_action( 'elementor/loaded' ) ) {
 			add_action( 'admin_notices', array( $this, 'admin_notice_missing_main_plugin' ) );
 			return;
 		}
 
-		// Check for required Elementor version
+		// Check for required Elementor version.
 		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
 			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_elementor_version' ) );
 			return;
 		}
 
-		// Check for required PHP version
+		// Check for required PHP version.
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
 			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
 			return;
 		}
 
-		// Add Plugin actions
+		// Add Plugin actions.
 		add_action(
 			'elementor_pro/init',
 			function () {
-				// Here its safe to include our action class file
+				// Here its safe to include our action class file.
 				include_once __DIR__ . '/classes/class-bcloud-custom-post-form-action.php';
 
-				// Instantiate the action class
+				// Instantiate the action class.
 				$elementor_form_custom_post_action = new Bcloud_Custom_Post_Form_Action();
 
-				// Register the action with form widget
+				// Register the action with form widget.
 				\ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $elementor_form_custom_post_action->get_name(), $elementor_form_custom_post_action );
 			}
 		);
 
-		// add custom form fields - Range field
+		// add custom form fields - Range field.
 		add_action(
 			'elementor_pro/forms/fields/register',
 			function ( $bcloud_field_registrar_manager ) {
@@ -173,7 +173,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 			}
 		);
 
-		// add custom form fields - Calculator field
+		// add custom form fields - Calculator field.
 		add_action(
 			'elementor_pro/forms/fields/register',
 			function ( $bcloud_field_registrar_manager ) {
@@ -182,8 +182,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 				$bcloud_field_registrar_manager->register( new Bcloud_Form_Calculator_Field() );
 			}
 		);
-		// add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
-		// add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
+		/*
+		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
+		add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
+		*/
 	}
 
 	/**
@@ -274,10 +276,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function init_widgets() {
 
-		// Include Widget files
-		// require_once( __DIR__ . '/widgets/test-widget.php' );
+		// Include Widget files.
+		// require_once( __DIR__ . '/widgets/test-widget.php' );.
 
-		// Register widget
+		// Register widget.
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_New_Widget() );
 	}
 
@@ -305,8 +307,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 
 	public function enqueue_styles_scripts() {
-		// wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
-		// 'jquery', microtime(), true);
+		/*
+		wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
+		'jquery', microtime(), true);
+		*/
 	}
 }
 
