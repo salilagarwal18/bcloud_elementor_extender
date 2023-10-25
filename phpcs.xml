@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="MyPlugin">
+    <description>My custom rules for my WordPress plugin.</description>
+
+    <!-- Include all WordPress standards -->
+    <rule ref="WordPress"/>
+
+    <!-- Exclude specific directories or files -->
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>
