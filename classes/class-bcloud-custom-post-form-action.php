@@ -36,7 +36,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 	 * Registers the Action controls
 	 *
 	 * @access public
-	 * @param \Elementor\Widget_Base $widget
+	 * @param \Elementor\Widget_Base $widget Elementor Widget object.
 	 */
 	public function register_settings_section( $widget ) {
 		$widget->start_controls_section(
@@ -48,12 +48,10 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 				),
 			)
 		);
-
-		$all_post_types = get_post_types(
-			$args       = array(
-				'public' => true,
-			)
+		$args           = array(
+			'public' => true,
 		);
+		$all_post_types = get_post_types( $args );
 		$widget->add_control(
 			'post_type',
 			array(
@@ -183,11 +181,12 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 	 * Runs the action after submit
 	 *
 	 * @access public
-	 * @param \ElementorPro\Modules\Forms\Classes\Form_Record  $record
-	 * @param \ElementorPro\Modules\Forms\Classes\Ajax_Handler $ajax_handler
+	 * @param \ElementorPro\Modules\Forms\Classes\Form_Record  $record Form record object.
+	 * @param \ElementorPro\Modules\Forms\Classes\Ajax_Handler $ajax_handler Ajax Handler object.
 	 */
 	public function run( $record, $ajax_handler ) {
 		/*
+		Check if current_user has permission.
 		if ( !current_user_can( 'edit_posts' ) ) {
 			return;
 		}
@@ -224,17 +223,17 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 
 		$post_content = $fields[ $settings['post_content'] ];
 
-		$customFieldsLen = count( $settings['post_custom_fields'] );
-		$meta_input      = array();
-		for ( $index = 0; $index < $customFieldsLen; $index++ ) {
+		$custom_fields_len = count( $settings['post_custom_fields'] );
+		$meta_input        = array();
+		for ( $index = 0; $index < $custom_fields_len; $index++ ) {
 			$custom_elementor_id          = $settings['post_custom_fields'][ $index ]['custom_field_elementor_id'];
 			$custom_acf_id                = $settings['post_custom_fields'][ $index ]['custom_field_acf_id'];
 			$meta_input[ $custom_acf_id ] = $fields[ $custom_elementor_id ];
 		}
 
-		$taxTermsLen = count( $settings['post_taxonomies'] );
-		$tax_input   = array();
-		for ( $index = 0; $index < $taxTermsLen; $index++ ) {
+		$tax_terms_len = count( $settings['post_taxonomies'] );
+		$tax_input     = array();
+		for ( $index = 0; $index < $tax_terms_len; $index++ ) {
 			$taxonomy_name          = $settings['post_taxonomies'][ $index ]['taxonomy_name'];
 			$taxonomy_term_field_id = $settings['post_taxonomies'][ $index ]['taxonomy_term'];
 			$taxonomy_term          = $fields[ $taxonomy_term_field_id ];
@@ -242,7 +241,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 			$term_obj               = get_term_by( 'name', $taxonomy_term, $taxonomy_name );
 			$term_id                = null;
 			if ( ! $term_obj ) {
-				if ( $create_new_term == 'yes' ) {
+				if ( 'yes' === $create_new_term ) {
 					$term_obj_arr = wp_insert_term( $taxonomy_term, $taxonomy_name );
 					if ( ! is_wp_error( $term_obj_arr ) ) {
 						$term_id = $term_obj_arr['term_id'];
@@ -271,13 +270,13 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 
 		if ( ! empty( $fields[ $settings['post_id'] ] ) ) {
 			$post_id = $fields[ $settings['post_id'] ];
-			if ( get_post_type( (int) $post_id ) != $post_type ) {
+			if ( get_post_type( (int) $post_id ) !== $post_type ) {
 				$ajax_handler->add_error_message( __( 'Post type is not equal to the post type of post_id', 'bcloud-elementor-extender' ) );
 				return;
 			}
 
 			$post_obj = get_post( (int) $post_id );
-			if ( ( $current_user && $current_user->ID == $post_obj->post_author ) or current_user_can( 'edit_others_posts' ) ) {
+			if ( ( $current_user && $current_user->ID === $post_obj->post_author ) || current_user_can( 'edit_others_posts' ) ) {
 				$post_arg['ID'] = $post_id;
 				wp_update_post( $post_arg );
 			} else {
@@ -288,7 +287,6 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 			$post_arg['post_status'] = 'publish'; // make it also dynamic - added by Salil on 20 Oct 2021.
 			$bcloud_post_id          = wp_insert_post( $post_arg );
 		}
-		return;
 	}
 
 	/**
@@ -297,7 +295,7 @@ class Bcloud_Custom_Post_Form_Action extends \ElementorPro\Modules\Forms\Classes
 	 * Clears form settings on export
 	 *
 	 * @access Public
-	 * @param array $element
+	 * @param array $element Element with all settings.
 	 */
 	public function on_export( $element ) {
 		unset(

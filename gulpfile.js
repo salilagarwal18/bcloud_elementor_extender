@@ -1,8 +1,9 @@
 const gulp = require( 'gulp' );
-/*const babel = require('gulp-babel');
-// const webpack = require('webpack-stream');
-// import gulp from 'gulp';
-// import webpack from 'webpack-stream';
+/*
+const babel = require('gulp-babel');
+const webpack = require('webpack-stream');
+import gulp from 'gulp';
+import webpack from 'webpack-stream';
 */
 const zip         = require( 'gulp-zip' );
 const replace     = require( 'gulp-replace' );

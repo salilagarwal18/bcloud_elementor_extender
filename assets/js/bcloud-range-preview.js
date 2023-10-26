@@ -8,9 +8,6 @@ jQuery( document ).ready(
 function bcloud_render_range_in_preview(inputField, item, i, settings ){
 	var range_before = item.bcloud_range_before ? item.bcloud_range_before : '';
 	var range_after  = item.bcloud_range_after ? item.bcloud_range_after : '';
-	result           = '<input type="range" class="bcloud-range-field" min="' + item.bcloud_range_min + '" max="' + item.bcloud_range_max + '" step="' + item.bcloud_range_step +
-				'" value="' + item.bcloud_range_default + '" data-before-range="' + range_before +
-				'" data-after-range="' + range_after + '">'
-			+ '<label class="bcloud-range-value">' + '</label>';
+	result           = '<input type="range" class="bcloud-range-field" min="${item.bcloud_range_min}" max="${item.bcloud_range_max}" step="${item.bcloud_range_step}" value="${item.bcloud_range_default}" data-before-range="${range_before}" data-after-range="${range_after}"><label class="bcloud-range-value"></label>';
 	return result;
 }

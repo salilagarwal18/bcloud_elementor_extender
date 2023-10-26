@@ -111,15 +111,15 @@ function bcloud_calculator_parse_parenthesis(formula_parts){
 					// console.log(index_of_closing_paren)
 					// console.log(formula_parts.slice(index_of_opening_paren + 1, index_of_closing_paren))
 					*/
-					var result = bcloud_calculator_get_new_value( formula_parts.slice( index_of_opening_paren + 1, index_of_closing_paren ) )
-					final_formula_parts.splice( index_of_opening_paren, (index_of_closing_paren - index_of_opening_paren) + 1 )
-					final_formula_parts.push( result )
-					found_one_closing_paren = true
 
+					var result = bcloud_calculator_get_new_value( formula_parts.slice( index_of_opening_paren + 1, index_of_closing_paren ) );
+					final_formula_parts.splice( index_of_opening_paren, (index_of_closing_paren - index_of_opening_paren) + 1 );
+					final_formula_parts.push( result );
+					found_one_closing_paren = true;
 				}
 			}
 		)
-		formula_parts = final_formula_parts
+		formula_parts               = final_formula_parts
 	} while (parenthesis_found) {
 		return bcloud_calculator_get_new_value( formula_parts )
 	}

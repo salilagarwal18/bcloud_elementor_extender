@@ -25,7 +25,7 @@ define( 'BCLOUD_ELEMENTOR_EXTENDER_URL', plugin_dir_url( __FILE__ ) );
  *
  * @since 1.0.0
  */
-final class Bcloud_Elementor_Edit_Post_Extension {
+final class Bcloud_Elementor_Extender {
 
 	/**
 	 * Plugin Version
@@ -182,7 +182,9 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 				$bcloud_field_registrar_manager->register( new Bcloud_Form_Calculator_Field() );
 			}
 		);
+
 		/*
+		Commented code
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
 		*/
@@ -210,7 +212,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 			'<strong>' . esc_html__( 'Elementor & Elementor Pro', 'bcloud-elementor-extender' ) . '</strong>'
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( esc_html( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>' ), esc_html( $message ) );
 	}
 
 	/**
@@ -236,7 +238,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( esc_html( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>' ), esc_html( $message ) );
 	}
 
 	/**
@@ -262,7 +264,7 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 			self::MINIMUM_PHP_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( esc_html( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>' ), esc_html( $message ) );
 	}
 
 	/**
@@ -294,10 +296,10 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	 */
 	public function init_controls() {
 
-		// Include Control files
-		// require_once( __DIR__ . '/controls/test-control.php' );
+		// Include Control files.
+		// require_once( __DIR__ . '/controls/test-control.php' );.
 
-		// Register control
+		// Register control.
 		\Elementor\Plugin::$instance->controls_manager->register_control( 'control-type-', new \New_Control() );
 	}
 
@@ -305,13 +307,13 @@ final class Bcloud_Elementor_Edit_Post_Extension {
 	/**
 	 * For Enqueuing styles and scripts
 	 */
-
 	public function enqueue_styles_scripts() {
 		/*
+		Commented code.
 		wp_register_script('bcloud-range-js', BCLOUD_ELEMENTOR_EXTENDER_URL . 'assets/js/bcloud-range.js',
 		'jquery', microtime(), true);
 		*/
 	}
 }
 
-Bcloud_Elementor_Edit_Post_Extension::instance();
+Bcloud_Elementor_Extender::instance();

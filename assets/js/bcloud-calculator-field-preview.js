@@ -7,7 +7,6 @@ jQuery( document ).ready(
 
 function bcloud_render_calcultor_in_preview(inputField, item, i, settings ){
 	console.log( item );
-	var result = '<input type="hidden" class="bcloud-calculator-input-field" data-formula="' + item.bcloud_calculator + '"><label class="elementor-field-label bcloud-calculator-field">'
-				+ 'Calculated value will appear here.' + '</label>';
+	var result = '<input type="hidden" class="bcloud-calculator-input-field" data-formula="${item.bcloud_calculator}"><label class="elementor-field-label bcloud-calculator-field">Calculated value will appear here.</label>';
 	return result;
 }

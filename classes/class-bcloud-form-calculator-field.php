@@ -31,6 +31,15 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		return 'calculator';
 	}
 
+	/**
+	 * Update form widget controls.
+	 *
+	 * Add input fields to allow the user to customize the credit card number field.
+	 *
+	 * @access public
+	 * @param \Elementor\Widget_Base $widget The form widget instance.
+	 * @return void
+	 */
 	public function update_controls( $widget ) {
 		$elementor = \ElementorPro\Plugin::elementor();
 
@@ -80,25 +89,35 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		$widget->update_control( 'form_fields', $control_data );
 	}
 
-
+	/**
+	 * Render field output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @access public
+	 * @param mixed $item Field item.
+	 * @param mixed $item_index Item index.
+	 * @param mixed $form Form object.
+	 * @return void
+	 */
 	public function render( $item, $item_index, $form ) {
-		$form_settings = $form->get_settings_for_display();
-		$formula       = $item['bcloud_calculator'];
-		$formula_parts = explode( ' ', $formula );
-		$formula_parts = array_filter(
+		$form_settings               = $form->get_settings_for_display();
+		$formula                     = $item['bcloud_calculator'];
+		$formula_parts               = explode( ' ', $formula );
+		$formula_parts               = array_filter(
 			$formula_parts,
 			function ( $value ) {
-				return ! is_null( $value ) && $value !== '';
+				return ! is_null( $value ) && '' !== $value;
 			}
 		);
-		$form_fields = $form_settings['form_fields'];
+		$form_fields                 = $form_settings['form_fields'];
 		$formula_field_id            = $item['custom_id'];
 		$all_field_custom_ids        = array();
 		$all_field_custom_ids_values = array();
 		foreach ( $form_fields as $form_field ) {
-			if ( $form_field['custom_id'] != $formula_field_id ) {
+			if ( $form_field['custom_id'] !== $formula_field_id ) {
 				array_push( $all_field_custom_ids, $form_field['custom_id'] );
-				if ( $form_field['field_type'] == 'range' ) {
+				if ( 'range' === $form_field['field_type'] ) {
 					$all_field_custom_ids_values[ $form_field['custom_id'] ] = $form_field['bcloud_range_default'];
 				} else {
 					$all_field_custom_ids_values[ $form_field['custom_id'] ] = $form_field['field_value'];
@@ -107,7 +126,7 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		}
 		$eval_string = '';
 		foreach ( $formula_parts as $formula_part ) {
-			if ( in_array( $formula_part, $all_field_custom_ids ) ) {
+			if ( in_array( $formula_part, $all_field_custom_ids, true ) ) {
 				$field_value = $all_field_custom_ids_values[ $formula_part ];
 				if ( is_numeric( $field_value ) ) {
 					$eval_string .= strval( $field_value );
@@ -145,12 +164,12 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 				}
 			}
 		}
-		
+
 		$result = '';
 		try {
 			$result = eval( 'return ' . $eval_string . ';' );
 		} catch ( ParseError $e ) {
-			echo 'Message: ' . $e->getMessage();
+			echo esc_html( 'Message: ' . $e->getMessage() );
 		}
 
 		if ( is_float( $result ) ) {
@@ -168,11 +187,17 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		?>
 
 		<input <?php $form->print_render_attribute_string( 'input' . $item_index ); ?>>
-		<label class="elementor-field-label bcloud-calculator-field"><?php echo $item['bcloud_calculator_before'] . $result . $item['bcloud_calculator_after']; ?></label>
+		<label class="elementor-field-label bcloud-calculator-field"><?php echo esc_attr( $item['bcloud_calculator_before'] . $result . $item['bcloud_calculator_after'] ); ?></label>
 
 		<?php
 	}
 
+	/**
+	 * Elementor editor preview scripts.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function add_preview_depends() {
 		wp_enqueue_script(
 			'bcloud-calculator',
@@ -197,6 +222,13 @@ class Bcloud_Form_Calculator_Field extends \ElementorPro\Modules\Forms\Fields\Fi
 		);
 	}
 
+	/**
+	 * Elementor editor assets scripts.
+	 *
+	 * @access public
+	 * @param mixed $form Form object.
+	 * @return void
+	 */
 	public function add_assets_depends( $form ) {
 		wp_enqueue_script(
 			'bcloud-calculator-field',
