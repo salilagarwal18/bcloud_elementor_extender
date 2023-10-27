@@ -9,6 +9,8 @@
  * Author:      Salil Agarwal
  * Author URI:  https://blue-cloud.io
  * Text Domain: bcloud-elementor-extender
+ *
+ * @package     BCloud_Elementor_Form_Extender
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

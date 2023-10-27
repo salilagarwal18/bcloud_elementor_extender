@@ -1,5 +1,15 @@
 <?php
 /**
+ * Bcloud Custom Post Form Action
+ *
+ * This file contains the class Bcloud_Custom_Post_Form_Action,
+ * a custom form action for Elementor to add, edit, and delete a post.
+ *
+ * @package BCloud_Elementor_Form_Extender
+ * @since 1.0.0
+ */
+
+/**
  * Class Bcloud_Custom_Post_Form_Action
  *
  * @see https://developers.elementor.com/custom-form-action/

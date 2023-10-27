@@ -1,4 +1,14 @@
 <?php
+/**
+ * Bcloud Form Calculator Field
+ *
+ * This file contains the class Bcloud_Form_Calculator_Field,
+ * which extends the Elementor Pro form field functionality
+ * to include a custom calculator field.
+ *
+ * @package BCloud_Elementor_Form_Extender
+ * @since 1.0.0
+ */
 
 /**
  * Class Bcloud_Form_Calculator_Field
